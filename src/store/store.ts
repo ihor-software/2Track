@@ -1,6 +1,6 @@
 import { configureStore } from '@reduxjs/toolkit';
-import userReducer from './userSlice.ts';  
-import tasksReducer from './tasksSlice.ts';
+import userReducer from './userSlice';  
+import tasksReducer from './tasksSlice';
 
 export const store = configureStore({
   reducer: {
@@ -8,3 +8,5 @@ export const store = configureStore({
     tasks: tasksReducer,
   },
 });
+
+export type RootState = ReturnType<typeof store.getState>; 

@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-export interface Task {
+export type Task = {
   id: string;
   checked: boolean;
   createdAt: number;

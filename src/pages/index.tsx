@@ -1,5 +1,3 @@
-'use client'
-
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { auth, provider, db } from '../lib/firebase';
@@ -11,6 +9,7 @@ import TaskList from '../components/TaskList';
 import AddTaskButton from '../components/AddTaskButton';
 import { Button } from '../components/ui/button';
 import { RootState } from '../store/store';
+import type { Task } from '../store/tasksSlice';
 
 export default function Home() {
   const dispatch = useDispatch();
@@ -51,8 +50,8 @@ export default function Home() {
         getDocs(tomorrowQuery)
       ]);
 
-      const tasksToday = todaySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() } as Task));
-      const tasksTomorrow = tomorrowSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() } as Task));
+      const tasksToday = todaySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }) as Task);
+      const tasksTomorrow = tomorrowSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }) as Task);
 
       dispatch(setTasksToday(tasksToday));
       dispatch(setTasksTomorrow(tasksTomorrow));
@@ -128,4 +127,3 @@ export default function Home() {
     </div>
   );
 }
-

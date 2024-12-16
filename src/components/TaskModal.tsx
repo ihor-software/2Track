@@ -20,6 +20,9 @@ interface TaskModalProps {
     priority: string;
     section: 'today' | 'tomorrow';
     remainingTime?: number;
+    createdAt: number;
+    user: string;
+    checked?: boolean;
   };
 }
 
@@ -55,21 +58,19 @@ export function TaskModal({ isOpen, onClose, task }: TaskModalProps) {
     const taskData = {
       title,
       description,
-      priority,
+      priority: priority as 'low' | 'medium' | 'high',
       remainingTime: timerMinutes * 60,
-      user: auth.currentUser?.uid,
+      user: auth.currentUser?.uid || '',
       createdAt: task?.createdAt || new Date().getTime(),
       checked: task?.checked || false,
-      section: task?.section || 'today',
+      section: task?.section || 'today' as 'today' | 'tomorrow',
     };
 
     try {
       if (task?.id) {
-        // Update existing task
         await updateDoc(doc(db, 'tasks', task.id), taskData);
         dispatch(updateTask({ id: task.id, ...taskData }));
       } else {
-        // Add new task
         const newTaskRef = doc(collection(db, 'tasks'));
         const newTask = { id: newTaskRef.id, ...taskData };
         await setDoc(newTaskRef, newTask);
