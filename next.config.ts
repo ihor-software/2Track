@@ -4,7 +4,7 @@ const nextConfig: NextConfig = {
   reactStrictMode: true,
   output: 'export', 
   basePath: '/2Track', 
-  assetPrefix: '/2Track/',
+  assetPrefix: '',
   eslint: {
     ignoreDuringBuilds: true, 
   },
